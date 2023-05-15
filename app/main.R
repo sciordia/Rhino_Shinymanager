@@ -14,23 +14,18 @@ check_credentials <- shinymanager$check_credentials(
 )
 
 #' @export
-ui <- function(id) {
-  ns <- NS(id)
+ui <- shinymanager$secure_app(
 
-  shinymanager$secure_app(
-
-    kmeans_plot$ui(ns("kmeans_plot"))
+    kmeans_plot$ui("kmeans_plot")
 
   )
 
-}
 
 #' @export
-server <- function(id) {
-  moduleServer(id, function(input, output, session) {
+server <- function(input, output, session) {
 
     shinymanager$secure_server(check_credentials)
     kmeans_plot$server("kmeans_plot")
 
-  })
+
 }
